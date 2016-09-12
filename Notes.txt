@@ -1,0 +1,23 @@
+Decisions:
+  It currently also takes binary inputs, I personally found this easier to input colours correctly.
+  Display.h really should have better documentation.
+
+  // old calculation:
+  // calculating each pixel from a combination of each of the four corners.
+  static_cast<int>((tl * (((max_width - d_x) / max_width) * ((max_height - d_y) / max_height)))
+                   + (tr * ((d_x / max_width) * ((max_height - d_y) / max_height)))
+                   + (bl * (((max_width - d_x) / max_width) * (d_y / max_height)))
+                   + (br * ((d_x / max_width) * (d_y / max_height)))
+                   + 0.5);
+
+  New information was added:
+    A progression between the two colours should give an equal number of pixels for each pixel colour:
+       e.g. 16 pixels from 0 to 2 should give 000000111111222222
+       The mathematical calculation above gives 0000111111112222.
+
+  Attempted to update pixel calculation to give this equal pixel output, but created horribly complicated code.
+
+  New method:
+  Calculate the furthest left pixels and furthest right pixels.
+  Then for each row calculate from it's furthest left pixel to furthest right pixel.
+  Far more simple and less computation.
