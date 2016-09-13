@@ -1,6 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="CMakeWorkspace" PROJECT_DIR="$PROJECT_DIR$" />
+  <component name="CidrRootsConfiguration">
+    <excludeRoots>
+      <file path="$PROJECT_DIR$/test/libs/googletest/build-aux" />
+      <file path="$PROJECT_DIR$/test/libs/googletest/codegear" />
+      <file path="$PROJECT_DIR$/test/libs/googletest/docs" />
+      <file path="$PROJECT_DIR$/test/libs/googletest/m4" />
+      <file path="$PROJECT_DIR$/test/libs/googletest/make" />
+      <file path="$PROJECT_DIR$/test/libs/googletest/msvc" />
+      <file path="$PROJECT_DIR$/test/libs/googletest/samples" />
+      <file path="$PROJECT_DIR$/test/libs/googletest/scripts" />
+      <file path="$PROJECT_DIR$/test/libs/googletest/test" />
+      <file path="$PROJECT_DIR$/test/libs/googletest/xcode" />
+    </excludeRoots>
+  </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="false">
     <OptionsSetting value="true" id="Add" />
     <OptionsSetting value="true" id="Remove" />

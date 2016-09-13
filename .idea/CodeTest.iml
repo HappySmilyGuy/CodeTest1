@@ -15,10 +15,20 @@
       <sourceFolder url="file://$MODULE_DIR$/test/basic_tests/CMakeLists.txt" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/test/basic_tests/RGB565_tests.cpp" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/test/CMakeLists.txt" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/test/libs/googletest/src/gtest_main.cc" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/test/libs/googletest/src/gtest-all.cc" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/test/libs/googletest/CMakeLists.txt" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/test/libs/googletest/cmake/internal_utils.cmake" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/test/libs/googletest/src/gtest_main.cc" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/test/libs/googletest/src/gtest-all.cc" isTestSource="false" />
+      <excludeFolder url="file://$MODULE_DIR$/test/libs/googletest/build-aux" />
+      <excludeFolder url="file://$MODULE_DIR$/test/libs/googletest/codegear" />
+      <excludeFolder url="file://$MODULE_DIR$/test/libs/googletest/docs" />
+      <excludeFolder url="file://$MODULE_DIR$/test/libs/googletest/m4" />
+      <excludeFolder url="file://$MODULE_DIR$/test/libs/googletest/make" />
+      <excludeFolder url="file://$MODULE_DIR$/test/libs/googletest/msvc" />
+      <excludeFolder url="file://$MODULE_DIR$/test/libs/googletest/samples" />
+      <excludeFolder url="file://$MODULE_DIR$/test/libs/googletest/scripts" />
+      <excludeFolder url="file://$MODULE_DIR$/test/libs/googletest/test" />
+      <excludeFolder url="file://$MODULE_DIR$/test/libs/googletest/xcode" />
     </content>
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="module-library">

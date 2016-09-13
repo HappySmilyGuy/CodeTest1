@@ -14,3 +14,11 @@ CONTRIBUTORS
 LICENSE
 Makefile.am
 README.md
+/src/gtest-typed-test.cc
+/src/gtest-internal-inl.h
+/src/gtest-death-test.cc
+/src/gtest-filepath.cc
+/src/gtest-port.cc
+/src/gtest-test-part.cc
+/src/gtest-printers.cc
+/src/gtest.cc
