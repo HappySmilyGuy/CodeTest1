@@ -1,2 +1,16 @@
 # python
 *.pyc
+build-aux
+codegear
+m4
+make
+msvc
+scripts
+test
+xcode
+CHANGES
+configure.ac
+CONTRIBUTORS
+LICENSE
+Makefile.am
+README.md

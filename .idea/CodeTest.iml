@@ -6,16 +6,11 @@
       <sourceFolder url="file://$MODULE_DIR$/src/Display.cpp" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/main.cpp" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/functions.cpp" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/headers/constants.h" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/headers/RGB565.h" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/headers/Display.h" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/headers/functions.h" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/headers/constants.h" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/headers/Display.h" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/headers/RGB565.h" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/CMakeLists.txt" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/tests/functions_tests.h" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/tests/tests.cpp" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/tests/RGB565_tests.h" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/tests/functions_tests.cpp" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/tests/RGB565_tests.cpp" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/test/basic_tests/function_tests.cpp" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/test/basic_tests/CMakeLists.txt" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/test/basic_tests/RGB565_tests.cpp" isTestSource="false" />
