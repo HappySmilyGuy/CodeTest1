@@ -22,6 +22,7 @@
       <excludeFolder url="file://$MODULE_DIR$/test/libs/googletest/build-aux" />
       <excludeFolder url="file://$MODULE_DIR$/test/libs/googletest/codegear" />
       <excludeFolder url="file://$MODULE_DIR$/test/libs/googletest/docs" />
+      <excludeFolder url="file://$MODULE_DIR$/test/libs/googletest/include/gtest/internal" />
       <excludeFolder url="file://$MODULE_DIR$/test/libs/googletest/m4" />
       <excludeFolder url="file://$MODULE_DIR$/test/libs/googletest/make" />
       <excludeFolder url="file://$MODULE_DIR$/test/libs/googletest/msvc" />

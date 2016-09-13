@@ -22,3 +22,14 @@ README.md
 /src/gtest-test-part.cc
 /src/gtest-printers.cc
 /src/gtest.cc
+/include/gtest/gtest-test-part.h
+/include/gtest/gtest_pred_impl.h
+/include/gtest/gtest-printers.h
+/include/gtest/gtest-spi.h
+/include/gtest/gtest-death-test.h
+/include/gtest/gtest_prod.h
+/include/gtest/gtest-param-test.h.pump
+/include/gtest/gtest-param-test.h
+/include/gtest/gtest-message.h
+/include/gtest/gtest-typed-test.h
+/include/gtest/internal/
