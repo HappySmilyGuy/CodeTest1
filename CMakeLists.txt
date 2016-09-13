@@ -3,6 +3,8 @@ project(ramp)
 
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
 
+add_subdirectory(test)
+
 add_executable(test_ramper src/Display.cpp src/functions.cpp src/RGB565.cpp
         tests/RGB565_tests.h tests/RGB565_tests.cpp tests/functions_tests.h tests/functions_tests.cpp
         tests/tests.cpp)
