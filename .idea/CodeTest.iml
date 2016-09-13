@@ -2,11 +2,20 @@
 <module type="CPP_MODULE" version="4">
   <component name="NewModuleRootManager">
     <content url="file://$MODULE_DIR$">
-      <sourceFolder url="file://$MODULE_DIR$/Source/Display.cpp" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/Source/main.cpp" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/tests/functions_tests.h" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/tests/tests.cpp" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/tests/functions_tests.cpp" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/tests/RGB565_tests.h" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/tests/RGB565_tests.cpp" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/headers/constants.h" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/headers/RGB565.h" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/headers/Display.h" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/headers/functions.h" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/CMakeLists.txt" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/Headers/constants.h" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/Headers/Display.h" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/RGB565.cpp" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/Display.cpp" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/main.cpp" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/functions.cpp" isTestSource="false" />
     </content>
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="module-library">

@@ -15,9 +15,9 @@ namespace Ramp
         const std::string EXE_NAME = "ramp.exe";
 
         const std::string HELP_TEXT = "The program should be invoked by the following command line:\n\n"
-                                              "C:>" + EXE_NAME + " display tl tr [bl] [br]\n\n"
+                                              "C:>" + EXE_NAME + " Display tl tr [bl] [br]\n\n"
                                               "where \n"
-                                              "  - display is the name of the display device\n"
+                                              "  - Display is the name of the Display device\n"
                                               "  - tl is the top left colour value\n"
                                               "  - tr is the top right colour value\n"
                                               "  - bl is the bottom left colour value [optional, defaults to tl]\n"
@@ -33,10 +33,10 @@ namespace Ramp
                                               "  - Pure green is 0x07e0\n"
                                               "  - Pure red is 0xf800\n\n"
                                               "The following inputs to the program are all valid:\n"
-                                              "  - " + EXE_NAME + " display 0x0 0x2\n"
-                                              "  - " + EXE_NAME + " display 65 255\n"
-                                              "  - " + EXE_NAME + " display 200 0 30\n"
-                                              "  - " + EXE_NAME + " display 0 0 3200 1800";
+                                              "  - " + EXE_NAME + " Display 0x0 0x2\n"
+                                              "  - " + EXE_NAME + " Display 65 255\n"
+                                              "  - " + EXE_NAME + " Display 200 0 30\n"
+                                              "  - " + EXE_NAME + " Display 0 0 3200 1800";
 
         namespace
         {
@@ -48,12 +48,12 @@ namespace Ramp
             }
         }
 
-        const int MAX_INT = 0xffff;
+      const unsigned short MAX_COLOUR_VAL = 0xffff;
 
         const std::string INT_FORMAT_ERROR_MSG =
-                "Input colour values must be integers between 0x0 and " + toHex(MAX_INT)
-                + " (" + std::to_string(MAX_INT) + ").";
-        const std::string DEVICE_CONNECTION_FAILURE_MSG = "Unable to connect to display device";
+                "Input colour values must be integers between 0x0 and " + toHex(MAX_COLOUR_VAL)
+                + " (" + std::to_string(MAX_COLOUR_VAL) + ").";
+      const std::string DEVICE_CONNECTION_FAILURE_MSG = "Unable to connect to Display device";
     }
 }
 

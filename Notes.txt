@@ -21,3 +21,10 @@ Decisions:
   Calculate the furthest left pixels and furthest right pixels.
   Then for each row calculate from it's furthest left pixel to furthest right pixel.
   Far more simple and less computation.
+
+  TESTING:
+    I'm trying out a new IDE at the moment (CLion by JetBrains), so after spending a day attempting to get Google
+    Test Framework to compile (I also couldn't get it to commit).
+    I tried using NetBeans, that was horrible, so I've reluctantly moved the project to Visual Studio, that makes
+    everything really bloated. So I'm just quickly mocking up some of my own test functions.
+

@@ -5,7 +5,7 @@
 #include <cstdio>
 #include <memory>
 #include <cstring>
-#include "../Headers/Display.h"
+#include "../headers/Display.h"
 
 #define W 16
 #define H 9
