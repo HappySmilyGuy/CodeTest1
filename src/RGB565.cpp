@@ -11,10 +11,17 @@ namespace Ramp
             g(0),
             b(0) {}
 
-  RGB565::RGB565(const unsigned short i)
-          : r(static_cast<unsigned short>((i >> 11) & 0b11111)),
-            g(static_cast<unsigned short>((i >> 5) & 0b111111)),
-            b(static_cast<unsigned short>(i & 0b11111)) {}
+  RGB565::RGB565(const unsigned short rgb565)
+          : r(static_cast<unsigned short>((rgb565 >> 11) & 0b11111)),
+            g(static_cast<unsigned short>((rgb565 >> 5) & 0b111111)),
+            b(static_cast<unsigned short>(rgb565 & 0b11111)) {}
+
+  RGB565::RGB565(const unsigned short r,
+                 const unsigned short g,
+                 const unsigned short b)
+          : r(static_cast<unsigned short>(r & 0b11111)),
+            g(static_cast<unsigned short>(g & 0b111111)),
+            b(static_cast<unsigned short>(b & 0b11111)) {}
 
   unsigned short RGB565::to_ushort() const
   {
