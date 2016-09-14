@@ -73,6 +73,25 @@ namespace Ramp
     }
   }
 
+  std::vector<std::vector<RGB565>> calculate_ramped_rows(const RGB565 &tl, const RGB565 &tr, const RGB565 &bl,
+                                                         const RGB565 &br, const unsigned int width,
+                                                         const unsigned int height)
+  {
+    std::vector<RGB565> left_column = calculate_ramp_line(tl, bl, height);
+    std::vector<RGB565> right_column = calculate_ramp_line(tr, br, height);
+
+    std::vector<std::vector<RGB565>> output;
+    for (unsigned int y = 0; y < height; ++y)
+    {
+      std::vector<RGB565> row = calculate_ramp_line(left_column[y], right_column[y], width);
+      if (row.size() > 0)
+      {
+        output.push_back(calculate_ramp_line(left_column[y], right_column[y], width));
+      }
+    }
+    return output;
+  }
+
   void display_rows(std::vector<std::vector<RGB565>> rows, Display &display)
   {
     int x = 0, y = 0;
@@ -89,20 +108,6 @@ namespace Ramp
       display.draw_raster(0, y, pixels, width);
       ++y;
     }
-  }
-
-  std::vector<std::vector<RGB565>> calculate_ramped_rows(const RGB565 &tl, const RGB565 &tr, const RGB565 &bl,
-                                                         const RGB565 &br, const int width, const int height)
-  {
-    std::vector<RGB565> left_column = calculate_ramp_line(tl, bl, height);
-    std::vector<RGB565> right_column = calculate_ramp_line(tr, br, height);
-
-    std::vector<std::vector<RGB565>> output;
-    for (int y = 0; y < height; ++y)
-    {
-      output.push_back(calculate_ramp_line(left_column[y], right_column[y], width));
-    }
-    return output;
   }
 
   void set_corner_values(int argc, char *argv[], RGB565 &tl, RGB565 &tr, RGB565 &bl, RGB565 &br)

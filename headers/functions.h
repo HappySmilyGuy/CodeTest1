@@ -13,7 +13,8 @@
 namespace Ramp
 {
   std::vector<std::vector<RGB565>> calculate_ramped_rows(const RGB565 &tl, const RGB565 &tr, const RGB565 &bl,
-                                                         const RGB565 &br, const int width, const int height);
+                                                         const RGB565 &br, const unsigned int width,
+                                                         const unsigned int height);
 
   // returns false if not passed input checks:
   // input checks:

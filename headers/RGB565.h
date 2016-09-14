@@ -12,7 +12,7 @@ namespace Ramp
   public:
     RGB565();
     RGB565(const unsigned short i);
-    unsigned short to_ushort();
+    unsigned short to_ushort() const;
     bool operator==(const RGB565 &rhs) const;
     bool operator!=(const RGB565 &rhs) const;
 

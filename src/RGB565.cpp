@@ -16,7 +16,7 @@ namespace Ramp
             g(static_cast<unsigned short>((i >> 5) & 0b111111)),
             b(static_cast<unsigned short>(i & 0b11111)) {}
 
-  unsigned short RGB565::to_ushort()
+  unsigned short RGB565::to_ushort() const
   {
     return b + (g << 5) + (r << 11);
   }
