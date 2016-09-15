@@ -166,11 +166,12 @@ namespace Ramp
           show_help = true;
           return true;
         }
-      case 1 :errors += Ramp::Constants::TOO_FEW_CMD_ARGS_MSG + "\n";
+      case 1 :
+        errors += Ramp::Constants::TOO_FEW_CMD_ARGS_MSG + "\n";
         output = false;
         break;
-
-      default:errors += Ramp::Constants::TOO_MANY_CMD_ARGS_MSG + "\n";
+      default:
+        errors += Ramp::Constants::TOO_MANY_CMD_ARGS_MSG + "\n";
         output = false;
         break;
     }
