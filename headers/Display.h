@@ -1,9 +1,5 @@
-//
-// Created by Eddie on 08-Sep-16.
-//
-
-#ifndef COLOURCHART_DISPLAY_H
-#define COLOURCHART_DISPLAY_H
+#ifndef RAMP_DISPLAY_H
+#define RAMP_DISPLAY_H
 
 class Display
 {
@@ -16,4 +12,4 @@ public:
                      const unsigned short *pixels, int width);
 };
 
-#endif //COLOURCHART_DISPLAY_H
+#endif //RAMP_DISPLAY_H

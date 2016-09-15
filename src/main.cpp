@@ -29,6 +29,6 @@ int main(int argc, char *argv[])
   display.get_size(width, height);
   std::vector<std::vector<Ramp::RGB565>> rows = Ramp::calculate_ramped_rows(tl, tr, bl, br, width, height);
 
-  Ramp::display_rows(rows, display);
+  Ramp::display_rows(display, rows);
   return 0;
 }

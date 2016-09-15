@@ -1,44 +1,205 @@
-//
-// Created by Eddie on 12-Sep-16.
-//
 #include "gtest/gtest.h"
 #include "../../headers/functions.h"
+#include "../../headers/constants.h"
 
 using Ramp::RGB565;
 
-//  bool checks_args(int argc, char *argv[], Display &d, bool &show_help, std::string &errors);
-TEST(function_checks, check_args)
-{
-  std::string errors;
-  bool show_help = false;
-  int argc = 6;
-  char *argv[] = {(char *)"ramp.exe", (char *)"display", (char *)"0", (char *)"0", (char *)"0", (char *)"0", NULL};
-  Display d;
-  EXPECT_EQ(true, Ramp::checks_args(argc, argv, d, show_help, errors));
-  EXPECT_EQ(false, show_help);
-  EXPECT_EQ("", errors);
+Display d;
 
-  // TODO
-  // incorrect values checks
-  // edge values
+// ------------------------------------------------- CHECK_ARGS TESTS --------------------------------------------------
+namespace
+{
+  // helper function for checking the "check_args" function.
+  void check_args_checker(int argc, char *argv_2[], bool acceptable_inputs = true, const std::string
+  &expected_error_msg = "", bool show_help_expected = false)
+  {
+    std::string errors;
+    bool show_help = false;
+    if (acceptable_inputs)
+    {
+      EXPECT_TRUE(Ramp::checks_args(argc, argv_2, d, show_help, errors)) << "Failed to accept acceptable inputs.";
+    }
+    else
+    {
+      EXPECT_FALSE(Ramp::checks_args(argc, argv_2, d, show_help, errors)) << "Failed to reject unacceptable input.";
+    }
+    if (show_help_expected)
+    {
+      EXPECT_TRUE(show_help) << "Failed to set 'show_help' to true, when help is requested.";
+    }
+    else
+    {
+      EXPECT_FALSE(show_help) << "Incorrectly set 'show_help' to true.";
+    }
+
+    if (expected_error_msg.size() == 0)
+    {
+      EXPECT_STREQ("", errors.c_str()) << "Not expecting an error message.";
+    }
+    else
+    {
+      EXPECT_STREQ((expected_error_msg + "\n" + Ramp::Constants::HELP_SUGGESTION_MSG + "\n").c_str(), errors.c_str())
+                    << "Incorrect error message output.";
+    }
+  }
+}
+
+//  bool checks_args(int argc, char *argv[], Display &d, bool &show_help, std::string &errors);
+TEST(function_checks, check_args__basic)
+{ // Basic tests
+  {
+    char *argv[] = {(char *)"ramp.exe", (char *)"display", (char *)"0", (char *)"0", (char *)"0", (char *)"0", NULL};
+    check_args_checker(6, argv);
+  }
+  { // ramp.exe display 65 255 // ramp.exe display 0x0 0x2
+    char *argv[] = {(char *)"ramp.exe", (char *)"display", (char *)"0x0", (char *)"0x2", NULL};
+    check_args_checker(4, argv);
+  }
+  { // ramp.exe display 65 255
+    char *argv[] = {(char *)"ramp.exe", (char *)"display", (char *)"65", (char *)"255", NULL};
+    check_args_checker(4, argv);
+  }
+  { // ramp.exe display 200 0 30
+    char *argv[] = {(char *)"ramp.exe", (char *)"display", (char *)"200", (char *)"0", (char *)"30", NULL};
+    check_args_checker(5, argv);
+  }
+  { // ramp.exe display 0 0 3200 1800
+    char *argv[] = {(char *)"ramp.exe", (char *)"display", (char *)"0", (char *)"0", (char *)"3200", (char *)"1800",
+                    NULL};
+    check_args_checker(6, argv);
+  }
+}
+
+TEST(function_checks, check_args__help_request)
+{
+  char *argv[] = {(char *)"ramp.exe", (char *)"help", NULL};
+  check_args_checker(2, argv, true, "", true);
+}
+
+TEST(function_checks, check_args__too_many_args)
+{
+  {
+    char *argv[] = {(char *)"ramp.exe", (char *)"display", (char *)"0", (char *)"0", (char *)"0", (char *)"0",
+                    (char *)"0", NULL};
+    check_args_checker(7, argv, false, Ramp::Constants::TOO_MANY_CMD_ARGS_MSG);
+  }
+  {
+    char *argv[] = {(char *)"ramp.exe", (char *)"display", (char *)"0", (char *)"0", (char *)"0", (char *)"0",
+                    (char *)"0", (char *)"0", NULL};
+    check_args_checker(8, argv, false, Ramp::Constants::TOO_MANY_CMD_ARGS_MSG);
+  }
 
 }
 
+TEST(function_checks, check_args__too_few_args)
+{
+  {
+    char *argv[] = {(char *)"ramp.exe", (char *)"display", (char *)"0", NULL};
+    check_args_checker(3, argv, false, Ramp::Constants::TOO_FEW_CMD_ARGS_MSG);
+  }
+  {
+    char *argv[] = {(char *)"ramp.exe", (char *)"display", NULL};
+    check_args_checker(2, argv, false, Ramp::Constants::TOO_FEW_CMD_ARGS_MSG);
+  }
+  {
+    char *argv[] = {(char *)"ramp.exe", NULL};
+    check_args_checker(1, argv, false, Ramp::Constants::TOO_FEW_CMD_ARGS_MSG);
+  }
+}
+
+namespace
+{
+  // runs args checker with input value 'arg' in each input position, expecting each argument to fail checks.
+  void check_args_unacceptable_arg_checker(const std::string &arg)
+  {
+    {
+      char *argv[] = {(char *)"ramp.exe", (char *)"display", (char *)arg.c_str(), (char *)"0", (char *)"0", (char *)"0",
+                      NULL};
+      std::string error = Ramp::Constants::INT_FORMAT_ERROR_MSG;
+      check_args_checker(6, argv, false, error.insert(Ramp::Constants::INT_FORMAT_ERROR_MSG_INPUT_POS, arg));
+    }
+    {
+      char *argv[] = {(char *)"ramp.exe", (char *)"display", (char *)"0", (char *)arg.c_str(), (char *)"0", (char *)"0",
+                      NULL};
+      std::string error = Ramp::Constants::INT_FORMAT_ERROR_MSG;
+      check_args_checker(6, argv, false, error.insert(Ramp::Constants::INT_FORMAT_ERROR_MSG_INPUT_POS, arg));
+    }
+    {
+      char *argv[] = {(char *)"ramp.exe", (char *)"display", (char *)"0", (char *)"0", (char *)arg.c_str(), (char *)"0",
+                      NULL};
+      std::string error = Ramp::Constants::INT_FORMAT_ERROR_MSG;
+      check_args_checker(6, argv, false, error.insert(Ramp::Constants::INT_FORMAT_ERROR_MSG_INPUT_POS, arg));
+    }
+    {
+      char *argv[] = {(char *)"ramp.exe", (char *)"display", (char *)"0", (char *)"0", (char *)"0", (char *)arg.c_str(),
+                      NULL};
+      std::string error = Ramp::Constants::INT_FORMAT_ERROR_MSG;
+      check_args_checker(6, argv, false, error.insert(Ramp::Constants::INT_FORMAT_ERROR_MSG_INPUT_POS, arg));
+    }
+  }
+
+  // runs args checker with input value 'arg' in each input position, expecting each argument to pass checks.
+  void check_args_acceptable_arg_checker(const std::string &arg)
+  {
+    {
+      char *argv[] = {(char *)"ramp.exe", (char *)"display", (char *)arg.c_str(), (char *)"0", (char *)"0", (char *)"0",
+                      NULL};
+      check_args_checker(6, argv);
+    }
+    {
+      char *argv[] = {(char *)"ramp.exe", (char *)"display", (char *)"0", (char *)arg.c_str(), (char *)"0", (char *)"0",
+                      NULL};
+      check_args_checker(6, argv);
+    }
+    {
+      char *argv[] = {(char *)"ramp.exe", (char *)"display", (char *)"0", (char *)"0", (char *)arg.c_str(), (char *)"0",
+                      NULL};
+      check_args_checker(6, argv);
+    }
+    {
+      char *argv[] = {(char *)"ramp.exe", (char *)"display", (char *)"0", (char *)"0", (char *)"0", (char *)arg.c_str(),
+                      NULL};
+      check_args_checker(6, argv);
+    }
+  }
+}
+
+// incorrect values
+TEST(function_checks, check_args__incorrect_vals)
+{
+  std::vector<std::string> failure_strings = {"-1", "0xf0000", "0b0", "a", "A", "@", "$s$s$s$s", "\\d"};
+  for (std::vector<std::string>::iterator it = failure_strings.begin(); it != failure_strings.end(); ++it)
+  {
+    check_args_unacceptable_arg_checker(*it);
+  }
+}
+
+// edge values
+TEST(function_checks, check_args__edge_values)
+{
+  std::vector<std::string> acceptable_strings = {"0", "0x0", "0xffff", "65535"};
+  for (std::vector<std::string>::iterator it = acceptable_strings.begin(); it != acceptable_strings.end(); ++it)
+  {
+    check_args_acceptable_arg_checker(*it);
+  }
+}
+
+// ---------------------------------------------- SET_CORNER_VALUES TESTS ----------------------------------------------
 //void set_corner_values(int argc, char *argv[], RGB565 &tl, RGB565 &tr, RGB565 &bl, RGB565 &br);
 TEST(function_checks, set_corner_values)
 {
   int argc = 6;
-  char *argv[] = {(char *)"ramp.exe", (char *)"display", (char *)"0", (char *)"2", (char *)"3", (char *)"4", NULL};
+  char *argv[] = {(char *)"ramp.exe", (char *)"display", (char *)"0x0", (char *)"0xffff", (char *)"0", (char *)"65535",
+                  NULL};
   RGB565 tl, tr, bl, br;
   Ramp::set_corner_values(argc, argv, tl, tr, bl, br);
-  EXPECT_EQ(tl.b, 0);
-  EXPECT_EQ(tr.b, 2);
-  EXPECT_EQ(bl.b, 3);
-  EXPECT_EQ(br.b, 4);
-
-  // TODO edge values
+  EXPECT_EQ(tl.to_ushort(), 0x0);
+  EXPECT_EQ(tr.to_ushort(), 0xffff);
+  EXPECT_EQ(bl.to_ushort(), 0);
+  EXPECT_EQ(br.to_ushort(), 65535);
 }
 
+// -------------------------------------------------- CHECK_ROW TESTS --------------------------------------------------
 namespace
 {
   void check_row(const std::vector<std::vector<RGB565>> result, unsigned int row,
@@ -350,7 +511,7 @@ namespace
 
   // check a perfect ramp 17x9
   TEST(function_checks, calculate_ramped_rows_RGB_3)
-  { // check a perfect ramp 17x9
+  {
     RGB565 tl(0, 0, 0), tr(16, 16, 16), bl(16, 16, 16), br(0, 0, 0);
     std::vector<std::vector<RGB565>> result = Ramp::calculate_ramped_rows(tl, tr, bl, br, 17, 9);
     check_column(result, 0, {C0, C2, C4, C6, C8, C10, C12, C14, C16}, " Failed to create a perfect 17x9 ramped grid.");
@@ -359,5 +520,16 @@ namespace
               " Failed to create a perfect 17x9 ramped grid.");
     check_row(result, 8, {C16, C15, C14, C13, C12, C11, C10, C9, C8, C7, C6, C5, C4, C3, C2, C1, C0},
               " Failed to create a perfect 17x9 ramped grid.");
+  }
+
+  // checks from very red to very green see if it transitions correctly.
+  TEST(function_checks, calculate_ramped_rows_opposing_ramps)
+  {
+    RGB565 red(0b11100, 0, 0), green(0, 0b111100, 0);
+    std::vector<std::vector<RGB565>> result = Ramp::calculate_ramped_rows(red, green, red, green, 5, 1);
+    check_row(result, 0,
+              {red.to_ushort(), RGB565(0b10101, 0b1111, 0).to_ushort(), RGB565(0b1110, 0b11110, 0).to_ushort(),
+               RGB565(0b111, 0b101101, 0).to_ushort(), green.to_ushort()},
+              " Failed to create correct transition between red and green.");
   }
 }

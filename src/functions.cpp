@@ -32,14 +32,15 @@ namespace Ramp
               && colour_val <= Ramp::Constants::MAX_COLOUR_VAL);
     }
 
+    // creates a smooth progression between @first and @last RGB values across
     std::vector<RGB565> calculate_ramp_line(const RGB565 &first, const RGB565 &last, const int no_of_pixels)
     {
-      double first_r = static_cast<double>(first.r);
-      double first_g = static_cast<double>(first.g);
-      double first_b = static_cast<double>(first.b);
-      double last_r = static_cast<double>(last.r);
-      double last_g = static_cast<double>(last.g);
-      double last_b = static_cast<double>(last.b);
+      double first_r = static_cast<double>(first.get_r());
+      double first_g = static_cast<double>(first.get_g());
+      double first_b = static_cast<double>(first.get_b());
+      double last_r = static_cast<double>(last.get_r());
+      double last_g = static_cast<double>(last.get_g());
+      double last_b = static_cast<double>(last.get_b());
       spread_out(first_r, last_r);
       spread_out(first_g, last_g);
       spread_out(first_b, last_b);
@@ -60,12 +61,12 @@ namespace Ramp
         }
         else
         {
-          pixel.r = static_cast<unsigned short>(
-                  (first_r * (((max_pixel_val - i) / max_pixel_val)) + (last_r * ((i / max_pixel_val)))) + 0.5);
-          pixel.g = static_cast<unsigned short>(
-                  (first_g * (((max_pixel_val - i) / max_pixel_val)) + (last_g * ((i / max_pixel_val)))) + 0.5);
-          pixel.b = static_cast<unsigned short>(
-                  (first_b * (((max_pixel_val - i) / max_pixel_val)) + (last_b * ((i / max_pixel_val)))) + 0.5);
+          pixel = RGB565(static_cast<unsigned short>((first_r * (((max_pixel_val - i) / max_pixel_val)) +
+                                                      (last_r * ((i / max_pixel_val)))) + 0.5),
+                         static_cast<unsigned short>((first_g * (((max_pixel_val - i) / max_pixel_val)) +
+                                                      (last_g * ((i / max_pixel_val)))) + 0.5),
+                         static_cast<unsigned short>((first_b * (((max_pixel_val - i) / max_pixel_val)) +
+                                                      (last_b * ((i / max_pixel_val)))) + 0.5));
         }
         output.push_back(pixel);
       }
@@ -92,7 +93,7 @@ namespace Ramp
     return output;
   }
 
-  void display_rows(std::vector<std::vector<RGB565>> rows, Display &display)
+  void display_rows(Display &display, std::vector<std::vector<RGB565>> rows)
   {
     int x = 0, y = 0;
     for (std::vector<std::vector<RGB565>>::iterator rows_it = rows.begin(); rows_it != rows.end(); ++rows_it)
@@ -112,11 +113,11 @@ namespace Ramp
 
   void set_corner_values(int argc, char *argv[], RGB565 &tl, RGB565 &tr, RGB565 &bl, RGB565 &br)
   {
-    tl = RGB565(static_cast<unsigned short>(std::stoi(argv[2])));
-    tr = RGB565(static_cast<unsigned short>(std::stoi(argv[3])));
+    tl = RGB565(static_cast<unsigned short>(std::stoi(argv[2], 0, 0)));
+    tr = RGB565(static_cast<unsigned short>(std::stoi(argv[3], 0, 0)));
     if (argc > 4)
     {
-      bl = RGB565(static_cast<unsigned short>(std::stoi(argv[4])));
+      bl = RGB565(static_cast<unsigned short>(std::stoi(argv[4], 0, 0)));
     }
     else
     {
@@ -124,7 +125,7 @@ namespace Ramp
     }
     if (argc > 5)
     {
-      br = RGB565(static_cast<unsigned short>(std::stoi(argv[5])));
+      br = RGB565(static_cast<unsigned short>(std::stoi(argv[5], 0, 0)));
     }
     else
     {
@@ -151,8 +152,8 @@ namespace Ramp
         {
           if (!check_colour_input(argv[i]))
           {
-            errors +=
-                    "Input error at \"" + std::string(argv[i]) + "\":\n" + Ramp::Constants::INT_FORMAT_ERROR_MSG + "\n";
+            std::string new_error = Ramp::Constants::INT_FORMAT_ERROR_MSG;
+            errors += new_error.insert(Ramp::Constants::INT_FORMAT_ERROR_MSG_INPUT_POS, std::string(argv[i])) + "\n";
             output = false;
             break;
           }
@@ -165,20 +166,18 @@ namespace Ramp
           show_help = true;
           return true;
         }
-      case 1 :
-        errors += "Insufficient commandline arguments.\n";
+      case 1 :errors += Ramp::Constants::TOO_FEW_CMD_ARGS_MSG + "\n";
         output = false;
         break;
 
-      default:
-        errors += "Too many commandline arguments.\n";
+      default:errors += Ramp::Constants::TOO_MANY_CMD_ARGS_MSG + "\n";
         output = false;
         break;
     }
 
     if (!output)
     {
-      errors += "Run as \"" + Ramp::Constants::EXE_NAME + " help\" for help.\n";
+      errors += Ramp::Constants::HELP_SUGGESTION_MSG + "\n";
     }
     return output;
   }
