@@ -31,7 +31,8 @@ namespace Ramp
                                           "  - " + EXE_NAME + " Display 0x0 0x2\n"
                                           "  - " + EXE_NAME + " Display 65 255\n"
                                           "  - " + EXE_NAME + " Display 200 0 30\n"
-                                          "  - " + EXE_NAME + " Display 0 0 3200 1800";
+                                                                                                       "  - " +
+                                                             EXE_NAME + " Display 0 0 3200 1800\n";
     namespace
     {
       std::string toHexStr(const int i)
@@ -43,15 +44,16 @@ namespace Ramp
     }
 
     const unsigned short MAX_COLOUR_VAL = 0xffff;
-    const int INT_FORMAT_ERROR_MSG_INPUT_POS = 16;
+    const unsigned int INT_FORMAT_ERROR_MSG_INPUT_POS = 16;
     const std::string INT_FORMAT_ERROR_MSG =
             "Input error at \"\":\nInput colour values must be integers between 0x0 and "
             + toHexStr(MAX_COLOUR_VAL) + " (" + std::to_string(MAX_COLOUR_VAL) + "),"
-            + " in decimal (e.g. 42) or hexadecimal (e.g. 0x2A) format.";
-    const std::string DEVICE_CONNECTION_FAILURE_MSG = "Unable to connect to Display device";
-    const std::string TOO_FEW_CMD_ARGS_MSG = "Insufficient commandline arguments.";
-    const std::string TOO_MANY_CMD_ARGS_MSG = "Too many commandline arguments.";
-    const std::string HELP_SUGGESTION_MSG = "Run as \"" + Ramp::Constants::EXE_NAME + " help\" for help.";
+            + " in decimal (e.g. 42) or hexadecimal (e.g. 0x2A) format.\n";
+    const unsigned int DEVICE_CONNECTION_FAILURE_MSG_INPUT_POS = 38;
+    const std::string DEVICE_CONNECTION_FAILURE_MSG = "Unable to connect to Display device: .\n";
+    const std::string TOO_FEW_CMD_ARGS_MSG = "Insufficient commandline arguments.\n";
+    const std::string TOO_MANY_CMD_ARGS_MSG = "Too many commandline arguments.\n";
+    const std::string HELP_SUGGESTION_MSG = "Run as \"" + Ramp::Constants::EXE_NAME + " help\" for help.\n";
   }
 }
 

@@ -78,8 +78,8 @@ namespace Ramp
                                                          const RGB565 &br, const unsigned int width,
                                                          const unsigned int height)
   {
-    std::vector<RGB565> left_column = calculate_ramp_line(tl, bl, height);
-    std::vector<RGB565> right_column = calculate_ramp_line(tr, br, height);
+    const std::vector<RGB565> left_column = calculate_ramp_line(tl, bl, height);
+    const std::vector<RGB565> right_column = calculate_ramp_line(tr, br, height);
 
     std::vector<std::vector<RGB565>> output;
     for (unsigned int y = 0; y < height; ++y)
@@ -93,15 +93,15 @@ namespace Ramp
     return output;
   }
 
-  void display_rows(Display &display, std::vector<std::vector<RGB565>> rows)
+  void display_rows(Display &display, const std::vector<std::vector<RGB565>> &rows)
   {
     int x = 0, y = 0;
-    for (std::vector<std::vector<RGB565>>::iterator rows_it = rows.begin(); rows_it != rows.end(); ++rows_it)
+    for (std::vector<std::vector<RGB565>>::const_iterator rows_it = rows.begin(); rows_it != rows.end(); ++rows_it)
     {
-      unsigned int width = static_cast<unsigned int>(rows_it->size());
+      const unsigned int width = static_cast<unsigned int>(rows_it->size());
       unsigned short pixels[width] = {};
       x = 0;
-      for (std::vector<RGB565>::iterator pixels_it = rows_it->begin(); pixels_it != rows_it->end(); ++pixels_it)
+      for (std::vector<RGB565>::const_iterator pixels_it = rows_it->begin(); pixels_it != rows_it->end(); ++pixels_it)
       {
         pixels[x] = pixels_it->to_ushort();
         ++x;
@@ -144,7 +144,8 @@ namespace Ramp
       case 4 :
         if (!d.connect(argv[2]))
         {
-          errors += Ramp::Constants::DEVICE_CONNECTION_FAILURE_MSG + " " + argv[1] + ".\n";
+          std::string new_error = Ramp::Constants::DEVICE_CONNECTION_FAILURE_MSG;
+          errors += new_error.insert(Ramp::Constants::DEVICE_CONNECTION_FAILURE_MSG_INPUT_POS, argv[1]);
           output = false;
           break;
         }
@@ -153,7 +154,7 @@ namespace Ramp
           if (!check_colour_input(argv[i]))
           {
             std::string new_error = Ramp::Constants::INT_FORMAT_ERROR_MSG;
-            errors += new_error.insert(Ramp::Constants::INT_FORMAT_ERROR_MSG_INPUT_POS, std::string(argv[i])) + "\n";
+            errors += new_error.insert(Ramp::Constants::INT_FORMAT_ERROR_MSG_INPUT_POS, std::string(argv[i]));
             output = false;
             break;
           }
@@ -167,18 +168,18 @@ namespace Ramp
           return true;
         }
       case 1 :
-        errors += Ramp::Constants::TOO_FEW_CMD_ARGS_MSG + "\n";
+        errors += Ramp::Constants::TOO_FEW_CMD_ARGS_MSG;
         output = false;
         break;
       default:
-        errors += Ramp::Constants::TOO_MANY_CMD_ARGS_MSG + "\n";
+        errors += Ramp::Constants::TOO_MANY_CMD_ARGS_MSG;
         output = false;
         break;
     }
 
     if (!output)
     {
-      errors += Ramp::Constants::HELP_SUGGESTION_MSG + "\n";
+      errors += Ramp::Constants::HELP_SUGGESTION_MSG;
     }
     return output;
   }

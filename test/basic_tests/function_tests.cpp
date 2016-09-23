@@ -38,7 +38,7 @@ namespace
     }
     else
     {
-      EXPECT_STREQ((expected_error_msg + "\n" + Ramp::Constants::HELP_SUGGESTION_MSG + "\n").c_str(), errors.c_str())
+      EXPECT_STREQ((expected_error_msg + Ramp::Constants::HELP_SUGGESTION_MSG).c_str(), errors.c_str())
                     << "Incorrect error message output.";
     }
   }
@@ -64,8 +64,8 @@ TEST(function_checks, check_args__basic)
     check_args_checker(5, argv);
   }
   { // ramp.exe display 0 0 3200 1800
-    char *argv[] = {(char *)"ramp.exe", (char *)"display", (char *)"0", (char *)"0", (char *)"3200", (char *)"1800",
-                    NULL};
+    char *argv[] =
+            {(char *)"ramp.exe", (char *)"display", (char *)"0", (char *)"0", (char *)"3200", (char *)"1800", NULL};
     check_args_checker(6, argv);
   }
 }
@@ -79,13 +79,15 @@ TEST(function_checks, check_args__help_request)
 TEST(function_checks, check_args__too_many_args)
 {
   {
-    char *argv[] = {(char *)"ramp.exe", (char *)"display", (char *)"0", (char *)"0", (char *)"0", (char *)"0",
-                    (char *)"0", NULL};
+    char *argv[] =
+            {(char *)"ramp.exe", (char *)"display", (char *)"0", (char *)"0", (char *)"0", (char *)"0", (char *)"0",
+             NULL};
     check_args_checker(7, argv, false, Ramp::Constants::TOO_MANY_CMD_ARGS_MSG);
   }
   {
-    char *argv[] = {(char *)"ramp.exe", (char *)"display", (char *)"0", (char *)"0", (char *)"0", (char *)"0",
-                    (char *)"0", (char *)"0", NULL};
+    char *argv[] =
+            {(char *)"ramp.exe", (char *)"display", (char *)"0", (char *)"0", (char *)"0", (char *)"0", (char *)"0",
+             (char *)"0", NULL};
     check_args_checker(8, argv, false, Ramp::Constants::TOO_MANY_CMD_ARGS_MSG);
   }
 
@@ -113,26 +115,26 @@ namespace
   void check_args_unacceptable_arg_checker(const std::string &arg)
   {
     {
-      char *argv[] = {(char *)"ramp.exe", (char *)"display", (char *)arg.c_str(), (char *)"0", (char *)"0", (char *)"0",
-                      NULL};
+      char *argv[] =
+              {(char *)"ramp.exe", (char *)"display", (char *)arg.c_str(), (char *)"0", (char *)"0", (char *)"0", NULL};
       std::string error = Ramp::Constants::INT_FORMAT_ERROR_MSG;
       check_args_checker(6, argv, false, error.insert(Ramp::Constants::INT_FORMAT_ERROR_MSG_INPUT_POS, arg));
     }
     {
-      char *argv[] = {(char *)"ramp.exe", (char *)"display", (char *)"0", (char *)arg.c_str(), (char *)"0", (char *)"0",
-                      NULL};
+      char *argv[] =
+              {(char *)"ramp.exe", (char *)"display", (char *)"0", (char *)arg.c_str(), (char *)"0", (char *)"0", NULL};
       std::string error = Ramp::Constants::INT_FORMAT_ERROR_MSG;
       check_args_checker(6, argv, false, error.insert(Ramp::Constants::INT_FORMAT_ERROR_MSG_INPUT_POS, arg));
     }
     {
-      char *argv[] = {(char *)"ramp.exe", (char *)"display", (char *)"0", (char *)"0", (char *)arg.c_str(), (char *)"0",
-                      NULL};
+      char *argv[] =
+              {(char *)"ramp.exe", (char *)"display", (char *)"0", (char *)"0", (char *)arg.c_str(), (char *)"0", NULL};
       std::string error = Ramp::Constants::INT_FORMAT_ERROR_MSG;
       check_args_checker(6, argv, false, error.insert(Ramp::Constants::INT_FORMAT_ERROR_MSG_INPUT_POS, arg));
     }
     {
-      char *argv[] = {(char *)"ramp.exe", (char *)"display", (char *)"0", (char *)"0", (char *)"0", (char *)arg.c_str(),
-                      NULL};
+      char *argv[] =
+              {(char *)"ramp.exe", (char *)"display", (char *)"0", (char *)"0", (char *)"0", (char *)arg.c_str(), NULL};
       std::string error = Ramp::Constants::INT_FORMAT_ERROR_MSG;
       check_args_checker(6, argv, false, error.insert(Ramp::Constants::INT_FORMAT_ERROR_MSG_INPUT_POS, arg));
     }
@@ -142,23 +144,23 @@ namespace
   void check_args_acceptable_arg_checker(const std::string &arg)
   {
     {
-      char *argv[] = {(char *)"ramp.exe", (char *)"display", (char *)arg.c_str(), (char *)"0", (char *)"0", (char *)"0",
-                      NULL};
+      char *argv[] =
+              {(char *)"ramp.exe", (char *)"display", (char *)arg.c_str(), (char *)"0", (char *)"0", (char *)"0", NULL};
       check_args_checker(6, argv);
     }
     {
-      char *argv[] = {(char *)"ramp.exe", (char *)"display", (char *)"0", (char *)arg.c_str(), (char *)"0", (char *)"0",
-                      NULL};
+      char *argv[] =
+              {(char *)"ramp.exe", (char *)"display", (char *)"0", (char *)arg.c_str(), (char *)"0", (char *)"0", NULL};
       check_args_checker(6, argv);
     }
     {
-      char *argv[] = {(char *)"ramp.exe", (char *)"display", (char *)"0", (char *)"0", (char *)arg.c_str(), (char *)"0",
-                      NULL};
+      char *argv[] =
+              {(char *)"ramp.exe", (char *)"display", (char *)"0", (char *)"0", (char *)arg.c_str(), (char *)"0", NULL};
       check_args_checker(6, argv);
     }
     {
-      char *argv[] = {(char *)"ramp.exe", (char *)"display", (char *)"0", (char *)"0", (char *)"0", (char *)arg.c_str(),
-                      NULL};
+      char *argv[] =
+              {(char *)"ramp.exe", (char *)"display", (char *)"0", (char *)"0", (char *)"0", (char *)arg.c_str(), NULL};
       check_args_checker(6, argv);
     }
   }
@@ -167,8 +169,8 @@ namespace
 // incorrect values
 TEST(function_checks, check_args__incorrect_vals)
 {
-  std::vector<std::string> failure_strings = {"-1", "0xf0000", "0b0", "a", "A", "@", "$s$s$s$s", "\\d"};
-  for (std::vector<std::string>::iterator it = failure_strings.begin(); it != failure_strings.end(); ++it)
+  const std::vector<std::string> failure_strings = {"-1", "0xf0000", "0b0", "a", "A", "@", "$s$s$s$s", "\\d"};
+  for (std::vector<std::string>::const_iterator it = failure_strings.begin(); it != failure_strings.end(); ++it)
   {
     check_args_unacceptable_arg_checker(*it);
   }
@@ -177,8 +179,8 @@ TEST(function_checks, check_args__incorrect_vals)
 // edge values
 TEST(function_checks, check_args__edge_values)
 {
-  std::vector<std::string> acceptable_strings = {"0", "0x0", "0xffff", "65535"};
-  for (std::vector<std::string>::iterator it = acceptable_strings.begin(); it != acceptable_strings.end(); ++it)
+  const std::vector<std::string> acceptable_strings = {"0", "0x0", "0xffff", "65535"};
+  for (std::vector<std::string>::const_iterator it = acceptable_strings.begin(); it != acceptable_strings.end(); ++it)
   {
     check_args_acceptable_arg_checker(*it);
   }
@@ -188,9 +190,9 @@ TEST(function_checks, check_args__edge_values)
 //void set_corner_values(int argc, char *argv[], RGB565 &tl, RGB565 &tr, RGB565 &bl, RGB565 &br);
 TEST(function_checks, set_corner_values)
 {
-  int argc = 6;
-  char *argv[] = {(char *)"ramp.exe", (char *)"display", (char *)"0x0", (char *)"0xffff", (char *)"0", (char *)"65535",
-                  NULL};
+  const int argc = 6;
+  char *argv[] =
+          {(char *)"ramp.exe", (char *)"display", (char *)"0x0", (char *)"0xffff", (char *)"0", (char *)"65535", NULL};
   RGB565 tl, tr, bl, br;
   Ramp::set_corner_values(argc, argv, tl, tr, bl, br);
   EXPECT_EQ(tl.to_ushort(), 0x0);
@@ -202,8 +204,8 @@ TEST(function_checks, set_corner_values)
 // -------------------------------------------------- CHECK_ROW TESTS --------------------------------------------------
 namespace
 {
-  void check_row(const std::vector<std::vector<RGB565>> result, unsigned int row,
-                 std::vector<std::vector<unsigned short>> expectations, std::string error_msg)
+  void check_row(const std::vector<std::vector<RGB565>> &result, unsigned int row,
+                 const std::vector<std::vector<unsigned short>> &expectations, std::string error_msg)
   {
     if (result[row].size() != expectations.size())
     {
@@ -212,7 +214,8 @@ namespace
                          << error_msg;
     }
     int i = 0;
-    for (std::vector<std::vector<unsigned short>>::iterator it = expectations.begin(); it != expectations.end(); ++it)
+    for (std::vector<std::vector<unsigned short>>::const_iterator it = expectations.begin(); it != expectations.end();
+         ++it)
     {
       if (it->size() == 1)
       {
@@ -222,8 +225,8 @@ namespace
       {
         bool b = false;
         std::string possible_results = "{";
-        for (std::vector<unsigned short>::iterator possible_results_it = it->begin(); possible_results_it != it->end();
-             ++possible_results_it)
+        for (std::vector<unsigned short>::const_iterator possible_results_it = it->begin();
+             possible_results_it != it->end(); ++possible_results_it)
         {
           possible_results += *possible_results_it + ", ";
           if (result[row][i] == RGB565(*possible_results_it))
@@ -240,8 +243,8 @@ namespace
     }
   }
 
-  void check_row(const std::vector<std::vector<RGB565>> result, unsigned int row,
-                 std::vector<unsigned short> expectations, std::string error_msg)
+  void check_row(const std::vector<std::vector<RGB565>> &result, unsigned int row,
+                 const std::vector<unsigned short> &expectations, const std::string &error_msg)
   {
     if (result[row].size() != expectations.size())
     {
@@ -250,15 +253,15 @@ namespace
                          << error_msg;
     }
     int i = 0;
-    for (std::vector<unsigned short>::iterator it = expectations.begin(); it != expectations.end(); ++it)
+    for (std::vector<unsigned short>::const_iterator it = expectations.begin(); it != expectations.end(); ++it)
     {
       EXPECT_EQ(*it, result[row][i].to_ushort()) << error_msg << " At position [" << row << "][" << i << "].";
       ++i;
     }
   }
 
-  void check_column(const std::vector<std::vector<RGB565>> result, unsigned int column,
-                    std::vector<unsigned short> expectations, std::string error_msg)
+  void check_column(const std::vector<std::vector<RGB565>> &result, unsigned int column,
+                    const std::vector<unsigned short> &expectations, const std::string &error_msg)
   {
     if (result.size() != expectations.size())
     {
@@ -267,15 +270,15 @@ namespace
                          << error_msg;
     }
     int i = 0;
-    for (std::vector<unsigned short>::iterator it = expectations.begin(); it != expectations.end(); ++it)
+    for (std::vector<unsigned short>::const_iterator it = expectations.begin(); it != expectations.end(); ++it)
     {
       EXPECT_EQ(*it, result[i][column].to_ushort()) << error_msg << " At position [" << i << "][" << column << "].";
       ++i;
     }
   }
 
-  void check_column(const std::vector<std::vector<RGB565>> result, unsigned int column,
-                    std::vector<std::vector<unsigned short>> expectations, std::string error_msg)
+  void check_column(const std::vector<std::vector<RGB565>> &result, unsigned int column,
+                    const std::vector<std::vector<unsigned short>> &expectations, const std::string &error_msg)
   {
     if (result.size() != expectations.size())
     {
@@ -284,7 +287,8 @@ namespace
                          << error_msg;
     }
     int i = 0;
-    for (std::vector<std::vector<unsigned short>>::iterator it = expectations.begin(); it != expectations.end(); ++it)
+    for (std::vector<std::vector<unsigned short>>::const_iterator it = expectations.begin(); it != expectations.end();
+         ++it)
     {
       if (it->size() == 1)
       {
@@ -295,8 +299,8 @@ namespace
       {
         bool b = false;
         std::string possible_results = "{";
-        for (std::vector<unsigned short>::iterator possible_results_it = it->begin(); possible_results_it != it->end();
-             ++possible_results_it)
+        for (std::vector<unsigned short>::const_iterator possible_results_it = it->begin();
+             possible_results_it != it->end(); ++possible_results_it)
         {
           possible_results += *possible_results_it + ", ";
           if (result[i][column] == RGB565(*possible_results_it))
@@ -320,18 +324,18 @@ namespace
 TEST(function_checks, calculate_ramped_rows_too_small_grids)
 {
   { // check a 16x0 grid
-    RGB565 tl(0), tr(2);
-    std::vector<std::vector<RGB565>> result = Ramp::calculate_ramped_rows(tl, tr, tl, tr, 16, 0);
+    const RGB565 tl(0), tr(2);
+    const std::vector<std::vector<RGB565>> result = Ramp::calculate_ramped_rows(tl, tr, tl, tr, 16, 0);
     EXPECT_EQ(result.size(), 0) << " Failed to create a 16x0 grid.";
   }
   { // check a 0x16 grid
-    RGB565 tl(0), tr(2);
-    std::vector<std::vector<RGB565>> result = Ramp::calculate_ramped_rows(tl, tr, tl, tr, 0, 16);
+    const RGB565 tl(0), tr(2);
+    const std::vector<std::vector<RGB565>> result = Ramp::calculate_ramped_rows(tl, tr, tl, tr, 0, 16);
     EXPECT_EQ(result.size(), 0) << " Failed to create a 0x16 grid.";
   }
   { // check a 0x0 grid
-    RGB565 tl(0), tr(2);
-    std::vector<std::vector<RGB565>> result = Ramp::calculate_ramped_rows(tl, tr, tl, tr, 0, 0);
+    const RGB565 tl(0), tr(2);
+    const std::vector<std::vector<RGB565>> result = Ramp::calculate_ramped_rows(tl, tr, tl, tr, 0, 0);
     EXPECT_EQ(result.size(), 0) << " Failed to create a 0x0 grid.";
   }
 }
@@ -339,34 +343,34 @@ TEST(function_checks, calculate_ramped_rows_too_small_grids)
 TEST(function_checks, calculate_ramped_rows)
 {
   { // check a 2x2 grid, small values
-    unsigned short tl = 0, tr = 1, bl = 2, br = 3;
-    std::vector<std::vector<RGB565>> result = Ramp::calculate_ramped_rows(RGB565(tl), RGB565(tr),
-                                                                          RGB565(bl), RGB565(br), 2, 2);
-    std::vector<std::vector<RGB565>> comparator = {{tl, tr},
-                                                   {bl, br}};
+    const unsigned short tl = 0, tr = 1, bl = 2, br = 3;
+    const std::vector<std::vector<RGB565>> result = Ramp::calculate_ramped_rows(RGB565(tl), RGB565(tr),
+                                                                                RGB565(bl), RGB565(br), 2, 2);
+    const std::vector<std::vector<RGB565>> comparator = {{tl, tr},
+                                                         {bl, br}};
     EXPECT_EQ(result, comparator) << " Failed to create a 2x2 grid with the corner values.";
   }
   { // check a 2x2 grid, large values
-    unsigned short tl = 0b1111111111111111;
-    unsigned short tr = 0b111111111111111;
-    unsigned short bl = 0b11111111111111;
-    unsigned short br = 0b1111111111111;
-    std::vector<std::vector<RGB565>> result = Ramp::calculate_ramped_rows(RGB565(tl), RGB565(tr),
-                                                                          RGB565(bl), RGB565(br), 2, 2);
-    std::vector<std::vector<RGB565>> comparator = {{tl, tr},
-                                                   {bl, br}};
+    const unsigned short tl = 0b1111111111111111;
+    const unsigned short tr = 0b111111111111111;
+    const unsigned short bl = 0b11111111111111;
+    const unsigned short br = 0b1111111111111;
+    const std::vector<std::vector<RGB565>> result = Ramp::calculate_ramped_rows(RGB565(tl), RGB565(tr),
+                                                                                RGB565(bl), RGB565(br), 2, 2);
+    const std::vector<std::vector<RGB565>> comparator = {{tl, tr},
+                                                         {bl, br}};
     EXPECT_EQ(result, comparator) << " Failed to create a 2x2 grid with the corner values.";
   }
   { // check a 3x3 grid
-    unsigned short tl = 0b1110011110011100;
-    unsigned short tr = 0b1100011100011000;
-    unsigned short bl = 0b1000011000010000;
-    unsigned short br = 0b0000010000000000;
-    std::vector<std::vector<RGB565>> result = Ramp::calculate_ramped_rows(RGB565(tl), RGB565(tr),
-                                                                          RGB565(bl), RGB565(br), 3, 3);
-    std::vector<std::vector<RGB565>> comparator = {{tl,                 0b1101011101011010, tr},
-                                                   {0b1011011011010110, 0b1000111000110001, 0b0110010110001100},
-                                                   {bl,                 0b0100010100001000, br}};
+    const unsigned short tl = 0b1110011110011100;
+    const unsigned short tr = 0b1100011100011000;
+    const unsigned short bl = 0b1000011000010000;
+    const unsigned short br = 0b0000010000000000;
+    const std::vector<std::vector<RGB565>> result = Ramp::calculate_ramped_rows(RGB565(tl), RGB565(tr),
+                                                                                RGB565(bl), RGB565(br), 3, 3);
+    const std::vector<std::vector<RGB565>> comparator = {{tl,                 0b1101011101011010, tr},
+                                                         {0b1011011011010110, 0b1000111000110001, 0b0110010110001100},
+                                                         {bl,                 0b0100010100001000, br}};
     EXPECT_EQ(result, comparator) << " Failed to create a 3x3 grid with the corner values.";
   }
 }
@@ -380,8 +384,8 @@ namespace
   // check a 16x1 grid
   TEST(function_checks, calculate_ramped_rows_RED_0)
   {
-    RGB565 tl(0, 0, 0), tr(2, 0, 0);
-    std::vector<std::vector<RGB565>> result = Ramp::calculate_ramped_rows(tl, tr, tl, tr, 16, 1);
+    const RGB565 tl(0, 0, 0), tr(2, 0, 0);
+    const std::vector<std::vector<RGB565>> result = Ramp::calculate_ramped_rows(tl, tr, tl, tr, 16, 1);
     check_row(result, 0, /*@formatter:off*/{{R0}, {R0}, {R0}, {R0}, {R0}, {R0, R1},
                                             {R1}, {R1}, {R1}, {R1}, {R1, R2},
                                             {R2}, {R2}, {R2}, {R2}, {R2}},/*@formatter:on*/
@@ -391,8 +395,8 @@ namespace
   // check a 1x9 grid
   TEST(function_checks, calculate_ramped_rows_RED_1)
   {
-    RGB565 tl(0, 0, 0), bl(3, 0, 0);
-    std::vector<std::vector<RGB565>> result = Ramp::calculate_ramped_rows(tl, tl, bl, bl, 1, 9);
+    const RGB565 tl(0, 0, 0), bl(3, 0, 0);
+    const std::vector<std::vector<RGB565>> result = Ramp::calculate_ramped_rows(tl, tl, bl, bl, 1, 9);
     check_column(result, 0, /*@formatter:off*/{{R0}, {R0}, {R0, R1},
                                                {R1}, {R1, R2},
                                                {R2}, {R2, R3},
@@ -414,8 +418,8 @@ namespace
   // check a 16x1 grid
   TEST(function_checks, calculate_ramped_rows_GREEN_0)
   {
-    RGB565 tl(0, 0, 0), tr(0, 2, 0);
-    std::vector<std::vector<RGB565>> result = Ramp::calculate_ramped_rows(tl, tr, tl, tr, 16, 1);
+    const RGB565 tl(0, 0, 0), tr(0, 2, 0);
+    const std::vector<std::vector<RGB565>> result = Ramp::calculate_ramped_rows(tl, tr, tl, tr, 16, 1);
     check_row(result, 0, /*@formatter:off*/{{G0}, {G0}, {G0}, {G0}, {G0}, {G0, G1},
                                             {G1}, {G1}, {G1}, {G1}, {G1, G2},
                                             {G2}, {G2}, {G2}, {G2}, {G2}},/*@formatter:on*/
@@ -425,12 +429,12 @@ namespace
   // check a 1x9 grid
   TEST(function_checks, calculate_ramped_rows_GREEN_1)
   {
-    RGB565 tl(0, 0, 0), bl(0, 3, 0);
-    std::vector<std::vector<RGB565>> result = Ramp::calculate_ramped_rows(tl, tl, bl, bl, 1, 9);
+    const RGB565 tl(0, 0, 0), bl(0, 3, 0);
+    const std::vector<std::vector<RGB565>> result = Ramp::calculate_ramped_rows(tl, tl, bl, bl, 1, 9);
     check_column(result, 0, /*@formatter:off*/{{G0}, {G0}, {G0, G1},
-                                                 {G1}, {G1, G2},
-                                                 {G2}, {G2, G3},
-                                                 {G3}, {G3}},/*@formatter:on*/
+                                               {G1}, {G1, G2},
+                                               {G2}, {G2, G3},
+                                               {G3}, {G3}},/*@formatter:on*/
                  " Failed to create a 1x9 grit with correct values.");
     EXPECT_TRUE(result[4][0] == G1 || (result[4][0] == G2 && result[2][0] == G1))
                   << " Failed to create a 1x9 grid with the correct [4][0] value.";
@@ -444,8 +448,8 @@ namespace
   // check a 16x1 grid
   TEST(function_checks, calculate_ramped_rows_BLUE_0)
   {
-    RGB565 tl(0), tr(2);
-    std::vector<std::vector<RGB565>> result = Ramp::calculate_ramped_rows(tl, tr, tl, tr, 16, 1);
+    const RGB565 tl(0), tr(2);
+    const std::vector<std::vector<RGB565>> result = Ramp::calculate_ramped_rows(tl, tr, tl, tr, 16, 1);
     check_row(result, 0, /*@formatter:off*/{{0},{0},{0},{0},{0},{0,1},{1},{1},{1},{1},{1,2},{2},{2},{2},{2},{2}},
               /*@formatter:on*/ " Failed to create a 16x1 grit with correct values.");
   }
@@ -453,8 +457,8 @@ namespace
   // check a 1x9 grid
   TEST(function_checks, calculate_ramped_rows_BLUE_1)
   {
-    RGB565 tl(0), bl(3);
-    std::vector<std::vector<RGB565>> result = Ramp::calculate_ramped_rows(tl, tl, bl, bl, 1, 9);
+    const RGB565 tl(0), bl(3);
+    const std::vector<std::vector<RGB565>> result = Ramp::calculate_ramped_rows(tl, tl, bl, bl, 1, 9);
     check_column(result, 0, /*@formatter:off*/{{0},{0},{0,1},{1},{1,2},{2},{2,3},{3},{3}},/*@formatter:on*/
                  " Failed to create a 1x9 grit with correct values.");
     EXPECT_TRUE(result[4][0] == 1 || (result[4][0] == 2 && result[2][0] == 1))
@@ -487,8 +491,8 @@ namespace
   //check all 4 sides and a random row and column of a 16x9
   TEST(function_checks, calculate_ramped_rows_RGB_2)
   {
-    RGB565 tl(0, 0, 0), tr(2, 2, 2), bl(3, 3, 3), br(4, 4, 4);
-    std::vector<std::vector<RGB565>> result = Ramp::calculate_ramped_rows(tl, tr, bl, br, 16, 9);
+    const RGB565 tl(0, 0, 0), tr(2, 2, 2), bl(3, 3, 3), br(4, 4, 4);
+    const std::vector<std::vector<RGB565>> result = Ramp::calculate_ramped_rows(tl, tr, bl, br, 16, 9);
     // far left column
     check_column(result, 0, /*@formatter:off*/{{C0},{C0},{C0,C1},{C1},{C1,C2},{C2},{C2,C3},{C3},{C3}},/*@formatter:on*/
                  " Failed to create a 16x9 grit with correct values.");
@@ -512,8 +516,8 @@ namespace
   // check a perfect ramp 17x9
   TEST(function_checks, calculate_ramped_rows_RGB_3)
   {
-    RGB565 tl(0, 0, 0), tr(16, 16, 16), bl(16, 16, 16), br(0, 0, 0);
-    std::vector<std::vector<RGB565>> result = Ramp::calculate_ramped_rows(tl, tr, bl, br, 17, 9);
+    const RGB565 tl(0, 0, 0), tr(16, 16, 16), bl(16, 16, 16), br(0, 0, 0);
+    const std::vector<std::vector<RGB565>> result = Ramp::calculate_ramped_rows(tl, tr, bl, br, 17, 9);
     check_column(result, 0, {C0, C2, C4, C6, C8, C10, C12, C14, C16}, " Failed to create a perfect 17x9 ramped grid.");
     check_column(result, 16, {C16, C14, C12, C10, C8, C6, C4, C2, C0}, " Failed to create a perfect 17x9 ramped grid.");
     check_row(result, 0, {C0, C1, C2, C3, C4, C5, C6, C7, C8, C9, C10, C11, C12, C13, C14, C15, C16},
@@ -525,8 +529,8 @@ namespace
   // checks from very red to very green see if it transitions correctly.
   TEST(function_checks, calculate_ramped_rows_opposing_ramps)
   {
-    RGB565 red(0b11100, 0, 0), green(0, 0b111100, 0);
-    std::vector<std::vector<RGB565>> result = Ramp::calculate_ramped_rows(red, green, red, green, 5, 1);
+    const RGB565 red(0b11100, 0, 0), green(0, 0b111100, 0);
+    const std::vector<std::vector<RGB565>> result = Ramp::calculate_ramped_rows(red, green, red, green, 5, 1);
     check_row(result, 0,
               {red.to_ushort(), RGB565(0b10101, 0b1111, 0).to_ushort(), RGB565(0b1110, 0b11110, 0).to_ushort(),
                RGB565(0b111, 0b101101, 0).to_ushort(), green.to_ushort()},
